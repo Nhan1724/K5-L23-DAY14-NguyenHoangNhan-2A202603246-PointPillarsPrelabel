@@ -9,8 +9,8 @@
 
 Ghi **trước** khi chạy `scripts/pp_sweep.py`, rồi commit và push ngay (lịch sử commit là bằng chứng thời điểm viết). Không sửa phần này sau khi có kết quả.
 
-- Tham số tôi nghĩ giảm công sửa nhiều nhất: tăng `score_thr` để giảm box thừa.
-- Vì sao (nhìn ảnh BEV tập A: box thừa nhiều hay box sót nhiều?): tôi dự đoán box thừa chiếm ưu thế.
+- **Tham số tôi nghĩ giảm công sửa nhiều nhất:** `score_thr` (tăng từ `0.1` lên khoảng `0.4`–`0.5`), tiếp theo có thể cân nhắc `min_points` để lọc các box ít điểm ở xa.
+- **Vì sao (nhìn ảnh BEV tập A: box thừa nhiều hay box sót nhiều?):** Ở ngưỡng thấp (`score_thr = 0.1`), mô hình sinh ra khá nhiều box có `score` thấp (khoảng `0.2`–`0.45`) hoặc ít điểm (`npts` nhỏ) nằm rải rác quanh vùng biên/xa tâm, trong khi các box đối tượng chính thường có `score` cao hơn rõ rệt. Do đó mình dự đoán **box thừa (false positive) chiếm ưu thế** hơn so với box sót, nên tăng `score_thr` sẽ loại bỏ nhanh các box nhiễu này và giảm chi phí xóa box đáng kể.
 
 ## 2. Tập A: sửa tay và tune
 
